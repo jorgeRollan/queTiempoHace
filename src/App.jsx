@@ -4,19 +4,19 @@ import CiudadUbicacion from './components/CiudadUbicacion';
 import './App.css';
 
 function App() {
-  const [select, setSelected] = useState(false);
+  const [clean, setClean] = useState(false);
 
-  const handleSelect = (newSelect) => {
-    setSelected(newSelect);
+  const handleClean = (newClean) => {
+    setClean(newClean);
   }
 
   return (
     <div>
       <h1>UNIT 1. API Weather</h1>
-      {select ? (
+      {clean ? (
       <false />
     ):<CiudadUbicacion />}
-      <SelectCiudades newSelect = {handleSelect}/>
+      <SelectCiudades newSelect = {handleClean}/>
     </div>
   );
 }
