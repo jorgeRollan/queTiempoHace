@@ -5,7 +5,7 @@ import ShowWeather from "./ShowWeather";
 export default function CiudadUbicacion() {
     const [datos, setDatos] = useState(null);
     const [position, setPosition] = useState(null);
-    const apiId = 'c489a3c47b96db585dd4389d1f7caffd';
+    const apiId = '';
     
     //posicion del navegador
     useEffect(() => {
