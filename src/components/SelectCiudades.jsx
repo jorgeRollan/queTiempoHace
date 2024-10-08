@@ -6,18 +6,21 @@ import ShowWeather from "./ShowWeather";
 export default function SelectCiudades({ newSelect }) {
   const [datos, setDatos] = useState(null);
   const [select, setSelect] = useState("Toledo");
+  const [cargando, setCargando] = useState(false);
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 
   //handle para cuando cambio el valor del select tambien le paso el valor al componente padre
   const handleChange = (event) => {
+    setCargando(!cargando);
     let ciudad = event.target.value;
     setSelect(ciudad);
     newSelect(ciudad);
   };
 
   const handleFetch = (newDatos) => {
-    setDatos(newDatos)
+    setDatos(newDatos);
+    setCargando(!cargando);
   }
 
   const busquedaCiudad = (event) => {
@@ -30,7 +33,7 @@ export default function SelectCiudades({ newSelect }) {
   useEffect(() => {
     if (select) {
       const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + select + '&appid=' + apiId + '&units=metric';
-      FetchUrl(url, handleFetch)
+      FetchUrl(url, handleFetch);
     }
   }, [select]);
 
@@ -45,12 +48,13 @@ export default function SelectCiudades({ newSelect }) {
       </select>
       <div>
         <form>
-          <label for="busqueda">Introduzca una ciudad</label>
+          <label htmlFor="busqueda">Introduzca una ciudad</label>
           <input type="text" id="busqueda" name="busqueda"></input>
           <button onClick={busquedaCiudad}>Buscar</button>
         </form>
       </div>
-      {datos!==null ? <ShowWeather datos={datos} /> : null}
+      {!cargando ? <p>Cargando...</p>: <ShowWeather datos={datos}/>}
+      
     </div> 
   )
 }
