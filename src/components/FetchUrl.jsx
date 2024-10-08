@@ -1,8 +1,12 @@
-const FetchUrl = function(url,handleFunction){
-  fetch(url)
-  .then((response) => response.json())
-  .then((data) => handleFunction(data))
-  .catch((error) => console.error('Error al obtener los datos del clima:', error));
-}
+const FetchUrl = async (url, handleFunction) => {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    handleFunction(data);
+  } catch (error) {
+    console.error('Error al obtener los datos del clima:', error);
+
+  }
+};
 
 export default FetchUrl;
