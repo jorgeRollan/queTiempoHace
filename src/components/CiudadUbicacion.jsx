@@ -22,7 +22,11 @@ export default function CiudadUbicacion() {
   }, []);
 
   const handleFetch = (newDatos) => {
-    setDatos(newDatos)
+    if (newDatos.cod!==200) {
+      setErrorData("No se han podido recuperar datos del tiempo");
+    }
+    else
+      setDatos(newDatos)
   }
 
   //fetch de la ciudad del navegador
@@ -41,20 +45,6 @@ export default function CiudadUbicacion() {
     }
   }, [errorLocation]);
 
-  // useffect para el estado error de datos del tiempo
-  useEffect(() => {
-    if (errorLocation != null) {
-      setErrorData("No se puede recuperar datos porque hay problema de ubicación");
-      window.alert(setErrorData);
-    }
-    else {
-      if (datos == null) {
-        setErrorData("No se han podido recuperar datos del tiempo");
-        window.alert(setErrorData);
-      }
-    }
-  }, [errorData]);
-
 
   if (datos) {
     return (
@@ -63,4 +53,5 @@ export default function CiudadUbicacion() {
       </div>
     )
   }
+  else return (errorData);
 }

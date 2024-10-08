@@ -20,6 +20,12 @@ export default function SelectCiudades({ newSelect }) {
     setDatos(newDatos)
   }
 
+  const busquedaCiudad = () => {
+    let newSelect = document.getElementById("busqueda").value;
+    setSelect(newSelect);
+    newSelect(select);
+  }
+
   useEffect(() => {
     if (select) {
       const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + select + '&appid=' + apiId + '&units=metric';
@@ -36,7 +42,13 @@ export default function SelectCiudades({ newSelect }) {
         <option value="Toledo">Toledo</option>
         <option value="Murcia">Murcia</option>
       </select>
-
+      <div>
+        <form>
+          <label for="busqueda">Introduzca una ciudad</label>
+          <input type="text" id="busqueda" name="busqueda"></input>
+          <button onClick={busquedaCiudad}>Buscar</button>
+        </form>
+      </div>
       {datos ? (
         <ShowWeather datos={datos} />
       ) : (

@@ -16,7 +16,7 @@ function App() {
       {clean ? (
       <false />
     ):<CiudadUbicacion />}
-      <SelectCiudades newSelect = {handleClean}/>
+    <SelectCiudades newSelect = {handleClean}/>
     </div>
   );
 }
