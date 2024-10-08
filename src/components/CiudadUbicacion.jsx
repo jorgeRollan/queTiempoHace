@@ -6,6 +6,7 @@ export default function CiudadUbicacion() {
   const [datos, setDatos] = useState(null);
   const [position, setPosition] = useState(null);
   const [errorLocation, setErrorLocaction] = useState(null);
+  const [errorData, setErrorData] = useState(null);
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
   //posicion del navegador
@@ -40,21 +41,26 @@ export default function CiudadUbicacion() {
     }
   }, [errorLocation]);
 
-// useffect para el estado error de datos del tiempo
-useEffect(() => {
-  if (errorLocation != null) {
-    window.alert(errorLocation.message);
-  }
-}, [errorLocation]);
+  // useffect para el estado error de datos del tiempo
+  useEffect(() => {
+    if (errorLocation != null) {
+      setErrorData("No se puede recuperar datos porque hay problema de ubicación");
+      window.alert(setErrorData);
+    }
+    else {
+      if (datos == null) {
+        setErrorData("No se han podido recuperar datos del tiempo");
+        window.alert(setErrorData);
+      }
+    }
+  }, [errorData]);
 
 
-  return (
-    <div>
-      {datos ? (
+  if (datos) {
+    return (
+      <div>
         <ShowWeather datos={datos} />
-      ) : (
-        <p>Cargando datos...</p>
-      )}
-    </div>
-  );
+      </div>
+    )
+  }
 }
