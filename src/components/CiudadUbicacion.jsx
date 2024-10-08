@@ -16,7 +16,7 @@ export default function CiudadUbicacion() {
         (error) => setErrorLocaction(error)
       );
     } else {
-      console.error("Geolocalización no soportada por el navegador");
+      setErrorLocaction("Geolocalización no soportada por el navegador");
     }
   }, []);
 
