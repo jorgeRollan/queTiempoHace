@@ -54,8 +54,7 @@ export default function SelectCiudades({ newSelect }) {
           <button onClick={busquedaCiudad}>Buscar</button>
         </form>
       </div>
-      {!cargando ? <p>Cargando...</p>: <ShowWeather datos={datos}/>}
-      
+      {!cargando ? <p>Cargando...</p>: <ShowWeather datos={datos}/>}      
     </div> 
   )
 }
