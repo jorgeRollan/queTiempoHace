@@ -11,19 +11,20 @@ export default function SelectCiudades({ newSelect }) {
 
   //handle para cuando cambio el valor del select tambien le paso el valor al componente padre
   const handleChange = (event) => {
-    setSelect(event.target.value);
-    newSelect(select);
+    let ciudad = event.target.value;
+    setSelect(ciudad);
+    newSelect(ciudad);
   };
-
 
   const handleFetch = (newDatos) => {
     setDatos(newDatos)
   }
 
-  const busquedaCiudad = () => {
-    let newSelect = document.getElementById("busqueda").value;
-    setSelect(newSelect);
-    newSelect(select);
+  const busquedaCiudad = (event) => {
+    event.preventDefault();
+    let ciudad = document.getElementById("busqueda").value;
+    setSelect(ciudad);
+    newSelect(ciudad);
   }
 
   useEffect(() => {
@@ -49,11 +50,7 @@ export default function SelectCiudades({ newSelect }) {
           <button onClick={busquedaCiudad}>Buscar</button>
         </form>
       </div>
-      {datos ? (
-        <ShowWeather datos={datos} />
-      ) : (
-        <p>Cargando datos...</p>
-      )}
-    </div>
-  );
+      {datos!==null ? <ShowWeather datos={datos} /> : null}
+    </div> 
+  )
 }
