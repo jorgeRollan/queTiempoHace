@@ -6,7 +6,7 @@ export default function CiudadUbicacion() {
   const [datos, setDatos] = useState(null);
   const [position, setPosition] = useState(null);
   const [errorLocation, setErrorLocaction] = useState(null);
-  const apiId = 'c489a3c47b96db585dd4389d1f7caffd';
+  const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
   //posicion del navegador
   useEffect(() => {
@@ -39,6 +39,14 @@ export default function CiudadUbicacion() {
       window.alert(errorLocation.message);
     }
   }, [errorLocation]);
+
+// useffect para el estado error de datos del tiempo
+useEffect(() => {
+  if (errorLocation != null) {
+    window.alert(errorLocation.message);
+  }
+}, [errorLocation]);
+
 
   return (
     <div>

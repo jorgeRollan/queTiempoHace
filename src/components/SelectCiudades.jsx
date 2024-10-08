@@ -6,7 +6,7 @@ import ShowWeather from "./ShowWeather";
 export default function SelectCiudades({ newSelect }) {
   const [datos, setDatos] = useState(null);
   const [select, setSelect] = useState("Toledo");
-  const apiId = 'c489a3c47b96db585dd4389d1f7caffd';
+  const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 
   //handle para cuando cambio el valor del select tambien le paso el valor al componente padre
