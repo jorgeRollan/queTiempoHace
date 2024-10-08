@@ -24,6 +24,7 @@ export default function SelectCiudades({ newSelect }) {
   }
 
   const busquedaCiudad = (event) => {
+    setCargando(!cargando);
     event.preventDefault();
     let ciudad = document.getElementById("busqueda").value;
     setSelect(ciudad);
