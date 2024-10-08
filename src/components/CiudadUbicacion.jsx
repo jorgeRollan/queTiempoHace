@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import FetchUrl from './FetchUrl';
+import FetchUrl from '../api/FetchUrl';
 import ShowWeather from "./ShowWeather";
 
 export default function CiudadUbicacion() {
