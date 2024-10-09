@@ -44,11 +44,17 @@ export default function CiudadUbicacion() {
 
   // useffect para el estado error de localizacion
   useEffect(() => {
-    if (errorLocation != null) {
+    if (errorLocation !== null) {
       window.alert(errorLocation.message);
     }
   }, [errorLocation]);
 
+  // useffect para el estado error de datos
+  useEffect(() => {
+    if (errorData !== null) {
+      window.alert(errorData.message);
+    }
+  }, [errorLocation]);
 
   if (!cargando) {
     return (
@@ -61,5 +67,4 @@ export default function CiudadUbicacion() {
       </div>
     )
   }
-  else return (window.alert(errorData));
 }

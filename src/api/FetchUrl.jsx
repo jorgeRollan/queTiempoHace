@@ -1,8 +1,8 @@
+import axios from 'axios'
 const FetchUrl = async (url, handleFunction) => {
   try {
-    const response = await fetch(url);
-    const data = await response.json();
-    await handleFunction(data);
+    const response = await axios.get(url);
+    await handleFunction(response.data);
   } catch (error) {
     console.error('Error al obtener los datos del clima:', error);
 
