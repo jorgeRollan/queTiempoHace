@@ -12,14 +12,18 @@ export default function SelectCiudades({ newSelect }) {
 
   //handle para cuando cambio el valor del select tambien le paso el valor al componente padre
   const handleChange = (event) => {
-    setCargando(!cargando);
     let ciudad = event.target.value;
-    setSelect(ciudad);
-    newSelect(ciudad);
+    if (ciudad !== select) {
+      setCargando(!cargando);
+      setSelect(ciudad);
+      newSelect(ciudad);
+    }
   };
 
+
+  //handle para la devolucion de datos del fetch o gestion de error
   const handleFetch = (newDatos) => {
-    if (newDatos.cod!==200) {
+    if (newDatos.cod !== 200) {
       setErrorData("No se han podido recuperar datos del tiempo");
     }
     else {
@@ -28,6 +32,7 @@ export default function SelectCiudades({ newSelect }) {
     }
   }
 
+  //funcion para la busqueda de ciudad 
   const busquedaCiudad = (event) => {
     setCargando(!cargando);
     event.preventDefault();
@@ -36,8 +41,9 @@ export default function SelectCiudades({ newSelect }) {
     newSelect(ciudad);
   }
 
+  //use effect para llamar a fetch cuando cambia el select
   useEffect(() => {
-    if (select) {
+    if (select !==null) {
       const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + select + '&appid=' + apiId + '&units=metric';
       FetchUrl(url, handleFetch);
     }
@@ -59,7 +65,7 @@ export default function SelectCiudades({ newSelect }) {
           <button onClick={busquedaCiudad}>Buscar</button>
         </form>
       </div>
-      {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos}/>}      
-    </div> 
+      {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos} />}
+    </div>
   )
 }
