@@ -37,7 +37,7 @@ export default function CiudadUbicacion() {
     if (position) {
       setCargando(!cargando);
       const url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=' + apiId + '&units=metric';
-      FetchUrl(url, handleFetch)
+      FetchUrl(url,"GET",null, handleFetch);
     }
   }, [position]);
 

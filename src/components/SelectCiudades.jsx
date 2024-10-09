@@ -45,7 +45,7 @@ export default function SelectCiudades({ newSelect }) {
   useEffect(() => {
     if (select !==null) {
       const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + select + '&appid=' + apiId + '&units=metric';
-      FetchUrl(url, handleFetch);
+      FetchUrl(url,"GET",null, handleFetch);
     }
   }, [select]);
 
