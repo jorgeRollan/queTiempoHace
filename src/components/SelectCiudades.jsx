@@ -19,8 +19,13 @@ export default function SelectCiudades({ newSelect }) {
   };
 
   const handleFetch = (newDatos) => {
-    setDatos(newDatos);
-    setCargando(!cargando);
+    if (newDatos.cod!==200) {
+      setErrorData("No se han podido recuperar datos del tiempo");
+    }
+    else {
+      setDatos(newDatos);
+      setCargando(!cargando);
+    }
   }
 
   const busquedaCiudad = (event) => {
@@ -54,7 +59,7 @@ export default function SelectCiudades({ newSelect }) {
           <button onClick={busquedaCiudad}>Buscar</button>
         </form>
       </div>
-      {!cargando ? <h2>Devolviendo datos del servidor</h2>: <ShowWeather datos={datos}/>}      
+      {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos}/>}      
     </div> 
   )
 }

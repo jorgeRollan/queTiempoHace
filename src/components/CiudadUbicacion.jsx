@@ -18,17 +18,18 @@ export default function CiudadUbicacion() {
         (error) => setErrorLocaction(error)
       );
     } else {
-      setErrorLocaction("Geolocalización no soportada por el navegador");
+      setErrorLocaction({ message: "Geolocalización no soportada por el navegador" });
     }
   }, []);
 
   const handleFetch = (newDatos) => {
-    if (newDatos.cod!==200) {
-      setErrorData("No se han podido recuperar datos del tiempo");
+    if (newDatos.cod !== 200) {
+      setErrorData({ message: "No se han podido recuperar datos del tiempo" });
     }
-    else
-      setDatos(newDatos)
-      setCargando(!cargando)
+    else {
+      setDatos(newDatos);
+      setCargando(!cargando);
+    }
   }
 
   //fetch de la ciudad del navegador
@@ -49,9 +50,9 @@ export default function CiudadUbicacion() {
   }, [errorLocation]);
 
 
-  if(!cargando){
-    return(
-    <h2>Devolviendo datos del servidor</h2>)
+  if (!cargando) {
+    return (
+      <h2>Devolviendo datos del servidor</h2>)
   }
   if (datos) {
     return (
@@ -60,5 +61,5 @@ export default function CiudadUbicacion() {
       </div>
     )
   }
-  else return (errorData);
+  else return (window.alert(errorData));
 }
