@@ -7,16 +7,16 @@ import './App.css';
 function App() {
   const [clean, setClean] = useState(false);
 
-  const handleClean = (newClean) => {
-    setClean(newClean);
+  const handleClean = () => {
+    setClean(!clean);
   }
 
   return (
     <div>
       <h1>UNIT 1. API Weather</h1>
-      {clean ? (
-        <false />
-      ) : <CiudadUbicacion />}
+      {clean ? 
+        <button onClick={handleClean}>Clima por ubicación</button>
+       : <CiudadUbicacion />}
       <CleanContext.Provider value={handleClean}>
         <SelectCiudades />
       </CleanContext.Provider>

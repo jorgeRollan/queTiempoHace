@@ -18,7 +18,7 @@ export default function SelectCiudades() {
     if (ciudad !== select) {
       setCargando(!cargando);
       setSelect(ciudad);
-      newSelect(ciudad);
+      newSelect();
     }
   };
 
