@@ -5,6 +5,7 @@ import CleanContext from '../context/Clean';
 
 
 export default function SelectCiudades() {
+  //states para datos del tiempo, ciudad del select el cargando y contexto del padre app para limpiar ubicacion
   const [datos, setDatos] = useState(null);
   const [select, setSelect] = useState("Toledo");
   const [cargando, setCargando] = useState(false);
@@ -18,7 +19,9 @@ export default function SelectCiudades() {
     if (ciudad !== select) {
       setCargando(!cargando);
       setSelect(ciudad);
-      newSelect();
+      if (!newSelect[1]) {
+        newSelect[0]();
+      }
     }
   };
 
@@ -39,15 +42,18 @@ export default function SelectCiudades() {
     setCargando(!cargando);
     event.preventDefault();
     let ciudad = document.getElementById("busqueda").value;
-    setSelect(ciudad);
-    newSelect(ciudad);
+    setCargando(!cargando);
+      setSelect(ciudad);
+      if (!newSelect[1]) {
+        newSelect[0]();
+      }
   }
 
   //use effect para llamar a fetch cuando cambia el select
   useEffect(() => {
-    if (select !==null) {
+    if (select !== null) {
       const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + select + '&appid=' + apiId + '&units=metric';
-      FetchUrl(url,"GET",null, handleFetch);
+      FetchUrl(url, "GET", null, handleFetch);
     }
   }, [select]);
 

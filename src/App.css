@@ -14,8 +14,30 @@
   background-color: azure;
 }
 
+
 #select{
-  background-color: beige;
+  background-color: green;
+}
+
+@media (prefers-color-scheme: dark) {
+  #root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    background-color: grey;
+  }
+  
+  #datosDefecto{
+    background-color: black;
+  }
+  
+  #datosCiudad{
+    background-color: white;
+  }
+  #select{
+    background-color: cornflowerblue;
+  }
 }
 
 .logo {

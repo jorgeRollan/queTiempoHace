@@ -1,23 +1,23 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import SelectCiudades from './components/SelectCiudades';
 import CiudadUbicacion from './components/CiudadUbicacion';
 import CleanContext from './context/Clean';
 import './App.css';
 
 function App() {
+  // estado para controlar si hay que quitar el panel de ubicacion o mostrarlo
   const [clean, setClean] = useState(false);
 
-  const handleClean = () => {
+  const handleClean = () =>
     setClean(!clean);
-  }
 
   return (
     <div>
       <h1>UNIT 1. API Weather</h1>
-      {clean ? 
+      {clean ?
         <button onClick={handleClean}>Clima por ubicación</button>
-       : <CiudadUbicacion />}
-      <CleanContext.Provider value={handleClean}>
+        : <CiudadUbicacion />}
+      <CleanContext.Provider value={[handleClean,clean]}>
         <SelectCiudades />
       </CleanContext.Provider>
     </div>
