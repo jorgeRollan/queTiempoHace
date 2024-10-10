@@ -15,16 +15,26 @@ export default function SelectCiudades() {
 
   //handle para cuando cambio el valor del select tambien le paso el valor al componente padre
   const handleChange = (event) => {
-    let ciudad = event.target.value;
-    if (ciudad !== select) {
-      setCargando(!cargando);
+    setCargando(!cargando);
+    let ciudad
+    if (event.type === "change") {
+      ciudad = event.target.value;
+      if (ciudad !== select) {
+        setSelect(ciudad);
+        if (!newSelect[1]) {
+          newSelect[0]();
+        }
+      }
+    }
+    else if (event.type === "click") {
+      event.preventDefault();
+      ciudad = document.getElementById("busqueda").value;
       setSelect(ciudad);
       if (!newSelect[1]) {
         newSelect[0]();
       }
     }
   };
-
 
   //handle para la devolucion de datos del fetch o gestion de error
   const handleFetch = (newDatos) => {
@@ -37,17 +47,7 @@ export default function SelectCiudades() {
     }
   }
 
-  //funcion para la busqueda de ciudad 
-  const busquedaCiudad = (event) => {
-    setCargando(!cargando);
-    event.preventDefault();
-    let ciudad = document.getElementById("busqueda").value;
-    setCargando(!cargando);
-      setSelect(ciudad);
-      if (!newSelect[1]) {
-        newSelect[0]();
-      }
-  }
+
 
   //use effect para llamar a fetch cuando cambia el select
   useEffect(() => {
@@ -70,7 +70,7 @@ export default function SelectCiudades() {
         <form>
           <label htmlFor="busqueda">Introduzca una ciudad</label>
           <input type="text" id="busqueda" name="busqueda"></input>
-          <button onClick={busquedaCiudad}>Buscar</button>
+          <button onClick={handleChange}>Buscar</button>
         </form>
       </div>
       {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos} />}

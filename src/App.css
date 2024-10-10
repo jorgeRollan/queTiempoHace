@@ -16,7 +16,7 @@
 
 
 #select{
-  background-color: green;
+  background-color: beige;
 }
 
 @media (prefers-color-scheme: dark) {
