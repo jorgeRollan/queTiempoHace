@@ -10,6 +10,7 @@ export default function SelectCiudades() {
   const [datos, setDatos] = useState(null);
   const [select, setSelect] = useState("Toledo");
   const [cargando, setCargando] = useState(false);
+  const [errorData, setErrorData] = useState(null)
   const newSelect = useContext(CleanContext);
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
@@ -39,10 +40,7 @@ export default function SelectCiudades() {
 
   //handle para la devolucion de datos del fetch o gestion de error
   const handleFetch = (newDatos) => {
-    if (newDatos.cod !== 200) {
-      setErrorData("No se han podido recuperar datos del tiempo");
-    }
-    else {
+    if (newDatos !== null) {
       setDatos(newDatos);
       setCargando(!cargando);
     }
@@ -58,6 +56,13 @@ export default function SelectCiudades() {
     }
   }, [select]);
 
+  // useffect para el estado error de datos
+  useEffect(() => {
+    if (errorData !== null) {
+      window.alert(errorData.message);
+    }
+  }, [errorData]);
+
   return (
     <div id="select">
       <select name="select" value={select} onChange={handleChange}>
@@ -67,15 +72,15 @@ export default function SelectCiudades() {
         <option value="Toledo">Toledo</option>
         <option value="Murcia">Murcia</option>
       </select>
-      <div>
+      <>
         <form>
           <label htmlFor="busqueda">Introduzca una ciudad</label>
           <input type="text" id="busqueda" name="busqueda"></input>
           <button onClick={handleChange}>Buscar</button>
         </form>
-      </div>
+      </>
       <DataContext.Provider value={datos}>
-      {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos} />}
+        {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos} />}
       </DataContext.Provider>
     </div>
   )

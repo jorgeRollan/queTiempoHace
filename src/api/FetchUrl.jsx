@@ -8,7 +8,10 @@ const FetchUrl = async (url, method, header, handleFunction) => {
     });
     await handleFunction(response.data);
   } catch (error) {
-    console.error('Error al obtener los datos del clima:', error);
+    if(error.status===404){
+      window.alert("error 404 con la direccion introducida, compruebe que la ciudad elegida existe y hay conexion a internet")
+      handleFunction(null);
+    }
   }
 };
 
