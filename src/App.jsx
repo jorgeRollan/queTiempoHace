@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import SelectCiudades from './components/SelectCiudades';
 import CiudadUbicacion from './components/CiudadUbicacion';
-import CleanContext from './context/Clean';
+import CleanContext from './context/Contexts';
 import './App.css';
 
 function App() {

@@ -1,7 +1,10 @@
 import * as Compass from 'cardinal-direction';
+import { useContext } from 'react';
+import DataContext from "../context/Contexts"
 
-const ShowWeather = (props) =>{
-  let {datos : {name, main:{temp, feels_like,humidity,pressure}, wind:{deg,speed}, weather}} = props
+const ShowWeather = () =>{
+  const datos = useContext(DataContext);
+  let {name, main:{temp, feels_like,humidity,pressure}, wind:{deg,speed}, weather} = datos
   return (
     <div id="datosDefecto">
       <h2>Clima en {name ?? "No disponible" }</h2>

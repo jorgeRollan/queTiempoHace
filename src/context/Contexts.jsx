@@ -2,5 +2,5 @@ import { createContext } from "react";
 
 
 const CleanContext = createContext();
-
-export default CleanContext;
+const DataContext = createContext();
+export default CleanContext; DataContext;

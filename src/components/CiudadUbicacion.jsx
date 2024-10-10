@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext } from "react";
 import FetchUrl from '../api/FetchUrl';
 import ShowWeather from "./ShowWeather";
+import DataContext from "../context/Contexts"
 
 export default function CiudadUbicacion() {
   const [datos, setDatos] = useState(null);
@@ -8,6 +9,7 @@ export default function CiudadUbicacion() {
   const [errorLocation, setErrorLocaction] = useState(null);
   const [errorData, setErrorData] = useState(null);
   const [cargando, setCargando] = useState(false);
+
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
   //posicion del navegador
@@ -37,7 +39,7 @@ export default function CiudadUbicacion() {
     if (position) {
       setCargando(!cargando);
       const url = 'https://api.openweathermap.org/data/2.5/weather?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude + '&appid=' + apiId + '&units=metric';
-      FetchUrl(url,"GET",null, handleFetch);
+      FetchUrl(url, "GET", null, handleFetch);
     }
   }, [position]);
 
@@ -54,16 +56,19 @@ export default function CiudadUbicacion() {
     if (errorData !== null) {
       window.alert(errorData.message);
     }
-  }, [errorLocation]);
+  }, [errorData]);
 
   if (!cargando) {
     return (
       <h2>Devolviendo datos del servidor</h2>)
   }
+
   if (datos) {
     return (
       <div>
-        <ShowWeather datos={datos} />
+        <DataContext.Provider value={datos}>
+          <ShowWeather />
+        </DataContext.Provider>
       </div>
     )
   }

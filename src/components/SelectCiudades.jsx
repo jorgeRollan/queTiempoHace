@@ -1,7 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import FetchUrl from "../api/FetchUrl";
 import ShowWeather from "./ShowWeather";
-import CleanContext from '../context/Clean';
+import CleanContext from '../context/Contexts';
+import DataContext from "../context/Contexts"
 
 
 export default function SelectCiudades() {
@@ -73,7 +74,9 @@ export default function SelectCiudades() {
           <button onClick={handleChange}>Buscar</button>
         </form>
       </div>
+      <DataContext.Provider value={datos}>
       {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos} />}
+      </DataContext.Provider>
     </div>
   )
 }
