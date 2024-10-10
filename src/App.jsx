@@ -1,6 +1,7 @@
-import { useState} from 'react';
+import {useState} from 'react';
 import SelectCiudades from './components/SelectCiudades';
 import CiudadUbicacion from './components/CiudadUbicacion';
+import CleanContext from './context/Clean';
 import './App.css';
 
 function App() {
@@ -14,9 +15,11 @@ function App() {
     <div>
       <h1>UNIT 1. API Weather</h1>
       {clean ? (
-      <false />
-    ):<CiudadUbicacion />}
-    <SelectCiudades newSelect = {handleClean}/>
+        <false />
+      ) : <CiudadUbicacion />}
+      <CleanContext.Provider value={handleClean}>
+        <SelectCiudades />
+      </CleanContext.Provider>
     </div>
   );
 }

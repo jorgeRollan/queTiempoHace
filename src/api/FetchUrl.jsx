@@ -9,7 +9,6 @@ const FetchUrl = async (url, method, header, handleFunction) => {
     await handleFunction(response.data);
   } catch (error) {
     console.error('Error al obtener los datos del clima:', error);
-
   }
 };
 

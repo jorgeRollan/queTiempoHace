@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import FetchUrl from "../api/FetchUrl";
 import ShowWeather from "./ShowWeather";
+import CleanContext from '../context/Clean';
 
 
-export default function SelectCiudades({ newSelect }) {
+export default function SelectCiudades() {
   const [datos, setDatos] = useState(null);
   const [select, setSelect] = useState("Toledo");
   const [cargando, setCargando] = useState(false);
+  const newSelect = useContext(CleanContext);
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 
