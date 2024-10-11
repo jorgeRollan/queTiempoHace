@@ -14,10 +14,10 @@ function App() {
   return (
     <div>
       <h1>UNIT 1. API Weather</h1>
-      {clean ?
-        <button onClick={[handleClean, clean]}>Clima por ubicación</button>
-        : <CiudadUbicacion />}
       <CleanContext.Provider value={[handleClean,clean]}>
+      {clean ?
+        <button onClick={handleClean}>Clima por ubicación</button>
+        : <CiudadUbicacion />}
         <SelectCiudades />
       </CleanContext.Provider>
     </div>
