@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import FetchUrl from '../api/FetchUrl';
 import ShowWeather from "./ShowWeather";
 import DataContext from "../context/Contexts"
-import CleanContext from "../context/Contexts";
 
 export default function CiudadUbicacion() {
   const [datos, setDatos] = useState(null);
@@ -11,7 +10,6 @@ export default function CiudadUbicacion() {
   const [errorData, setErrorData] = useState(null);
   const [cargando, setCargando] = useState(false);
 
-  const clean = useContext(CleanContext);
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
   //posicion del navegador he puesto el setinterval para que actualice la ubicacion cada x ms(he puesto 10 de momento) llamo a la funcion primero para evitar el delay la primera vez(?)
@@ -22,16 +20,6 @@ export default function CiudadUbicacion() {
     }, 10000);
     return () => clearInterval(intervalo);
   }, []);
-
-  const handleFetch = (newDatos) => {
-    if (newDatos.cod !== 200) {
-      setErrorData({ message: "No se han podido recuperar datos del tiempo" });
-    }
-    else {
-      setDatos(newDatos);
-      setCargando(!cargando);
-    }
-  }
 
   //fetch de la ciudad del navegador
   useEffect(() => {
@@ -57,8 +45,20 @@ export default function CiudadUbicacion() {
     }
   }, [errorData]);
 
+  //handle para la devolucion de datos del fetch o gestion de error
+  const handleFetch = (newDatos) => {
+    //si codigo http distinto de 200
+    if (newDatos.cod !== 200) {
+      setErrorData({ message: `error  ${newDatos.cod} No se han podido recuperar datos del tiempo` });
+    }
+    else {
+      setDatos(newDatos);
+    }
+    //cargue los datos o falle hay que parar cargando
+    setCargando(!cargando);
+  }
 
-  //he sacado fuera la constante que estaba en el useffect para llamarla 2 veces
+  //he sacado fuera la constante que estaba en el useffect para llamarla 2 veces con el setInterval
   const obtenerUbicacion = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -70,16 +70,15 @@ export default function CiudadUbicacion() {
     }
   }
 
-
+  //si cargando true muestro eso mientras
   if (!cargando) {
     return (
       <h2>Devolviendo datos del servidor</h2>)
   }
-
+  //si hay datos los muestro con un showWeather y su context
   if (datos) {
     return (
       <div>
-        {clearInterval()}
         <DataContext.Provider value={datos}>
           <ShowWeather />
         </DataContext.Provider>

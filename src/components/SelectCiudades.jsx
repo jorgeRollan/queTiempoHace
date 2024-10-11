@@ -20,29 +20,29 @@ export default function SelectCiudades() {
     setCargando(!cargando);
     let ciudad = "";
     if (event.type === "change") {
-        ciudad = event.target.value;
-        if (ciudad !== select) {
-            setSelect(ciudad);
-            if (!newSelect[1]) {
-                newSelect[0]();
-            }
-        }
-    } 
-    else if (event.type === "click") {
-        event.preventDefault();
-        ciudad = document.getElementById("busqueda").value;
+      ciudad = event.target.value;
+      if (ciudad !== select) {
         setSelect(ciudad);
         if (!newSelect[1]) {
-            newSelect[0]();
+          newSelect[0]();
         }
+      }
     }
-};
+    else if (event.type === "click") {
+      event.preventDefault();
+      ciudad = document.getElementById("busqueda").value;
+      setSelect(ciudad);
+      if (!newSelect[1]) {
+        newSelect[0]();
+      }
+    }
+  };
 
   //handle para la devolucion de datos del fetch o gestion de error
   const handleFetch = (newDatos) => {
-    //si error del fetch o codigo http distinto de 200
-    if (newDatos === null || newDatos.cod !== 200) {
-      setErrorData({ message: "No se han podido recuperar datos del tiempo" });
+    //si codigo http distinto de 200
+    if (newDatos.cod !== 200) {
+      setErrorData({ message: `error  ${newDatos.cod} No se han podido recuperar datos del tiempo` });
     }
     else {
       setDatos(newDatos);
