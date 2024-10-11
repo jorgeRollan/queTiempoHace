@@ -10,7 +10,7 @@ export default function SelectCiudades() {
   const [datos, setDatos] = useState(null);
   const [select, setSelect] = useState("Toledo");
   const [cargando, setCargando] = useState(false);
-  const [errorData, setErrorData] = useState(null)
+  const [errorData, setErrorData] = useState(null);
   const newSelect = useContext(CleanContext);
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
