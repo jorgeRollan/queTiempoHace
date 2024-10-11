@@ -80,7 +80,7 @@ export default function SelectCiudades() {
         </form>
       </>
       <DataContext.Provider value={datos}>
-        {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather datos={datos} />}
+        {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather  />}
       </DataContext.Provider>
     </div>
   )
