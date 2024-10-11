@@ -15,38 +15,41 @@ export default function SelectCiudades() {
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
 
-  //handle para cuando cambio el valor del select tambien le paso el valor al componente padre
+  //handle para pillar el select y ahora tambien el campo de busqueda de la ciudad
   const handleChange = (event) => {
     setCargando(!cargando);
-    let ciudad
+    let ciudad = "";
     if (event.type === "change") {
-      ciudad = event.target.value;
-      if (ciudad !== select) {
+        ciudad = event.target.value;
+        if (ciudad !== select) {
+            setSelect(ciudad);
+            if (!newSelect[1]) {
+                newSelect[0]();
+            }
+        }
+    } 
+    else if (event.type === "click") {
+        event.preventDefault();
+        ciudad = document.getElementById("busqueda").value;
         setSelect(ciudad);
         if (!newSelect[1]) {
-          newSelect[0]();
+            newSelect[0]();
         }
-      }
     }
-    else if (event.type === "click") {
-      event.preventDefault();
-      ciudad = document.getElementById("busqueda").value;
-      setSelect(ciudad);
-      if (!newSelect[1]) {
-        newSelect[0]();
-      }
-    }
-  };
+};
 
   //handle para la devolucion de datos del fetch o gestion de error
   const handleFetch = (newDatos) => {
-    if (newDatos !== null) {
-      setDatos(newDatos);
-      setCargando(!cargando);
+    //si error del fetch o codigo http distinto de 200
+    if (newDatos === null || newDatos.cod !== 200) {
+      setErrorData({ message: "No se han podido recuperar datos del tiempo" });
     }
+    else {
+      setDatos(newDatos);
+    }
+    //cargue los datos o falle hay que parar cargando
+    setCargando(!cargando);
   }
-
-
 
   //use effect para llamar a fetch cuando cambia el select
   useEffect(() => {
@@ -80,7 +83,7 @@ export default function SelectCiudades() {
         </form>
       </>
       <DataContext.Provider value={datos}>
-        {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather  />}
+        {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather />}
       </DataContext.Provider>
     </div>
   )

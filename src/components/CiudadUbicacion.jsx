@@ -1,7 +1,8 @@
-import { useEffect, useState, createContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import FetchUrl from '../api/FetchUrl';
 import ShowWeather from "./ShowWeather";
 import DataContext from "../context/Contexts"
+import CleanContext from "../context/Contexts";
 
 export default function CiudadUbicacion() {
   const [datos, setDatos] = useState(null);
@@ -10,18 +11,16 @@ export default function CiudadUbicacion() {
   const [errorData, setErrorData] = useState(null);
   const [cargando, setCargando] = useState(false);
 
+  const clean = useContext(CleanContext);
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
-  //posicion del navegador
+  //posicion del navegador he puesto el setinterval para que actualice la ubicacion cada x ms(he puesto 10 de momento) llamo a la funcion primero para evitar el delay la primera vez(?)
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => setPosition(pos),
-        (error) => setErrorLocaction(error)
-      );
-    } else {
-      setErrorLocaction({ message: "Geolocalización no soportada por el navegador" });
-    }
+    obtenerUbicacion();
+    const intervalo = setInterval(() => {
+      obtenerUbicacion();
+    }, 10000);
+    return () => clearInterval(intervalo);
   }, []);
 
   const handleFetch = (newDatos) => {
@@ -58,6 +57,20 @@ export default function CiudadUbicacion() {
     }
   }, [errorData]);
 
+
+  //he sacado fuera la constante que estaba en el useffect para llamarla 2 veces
+  const obtenerUbicacion = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => setPosition(pos),
+        (error) => setErrorLocaction(error)
+      );
+    } else {
+      setErrorLocaction({ message: "Geolocalización no soportada por el navegador" });
+    }
+  }
+
+
   if (!cargando) {
     return (
       <h2>Devolviendo datos del servidor</h2>)
@@ -66,6 +79,7 @@ export default function CiudadUbicacion() {
   if (datos) {
     return (
       <div>
+        {clearInterval()}
         <DataContext.Provider value={datos}>
           <ShowWeather />
         </DataContext.Provider>
@@ -73,4 +87,3 @@ export default function CiudadUbicacion() {
     )
   }
 }
-
