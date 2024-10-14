@@ -6,15 +6,12 @@
   background-color: aquamarine;
 }
 
-#datosDefecto{
+#showWeather{
   background-color: azure;
 }
 
-#datosCiudad{
-  background-color: azure;
-}
 
-#select{
+#selectCity{
   background-color: beige;
 }
 
@@ -27,14 +24,10 @@
     background-color: grey;
   }
   
-  #datosDefecto{
+  #showWeather{
     background-color: black;
   }
-  
-  #datosCiudad{
-    background-color: white;
-  }
-  #select{
+  #selectCity{
     background-color: cornflowerblue;
   }
 }

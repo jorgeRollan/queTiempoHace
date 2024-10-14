@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import SelectCiudades from './components/SelectCiudades';
-import CiudadUbicacion from './components/CiudadUbicacion';
+import SelectCities from './components/SelectCities';
+import CityLocation from './components/CityLocation';
 import CleanContext from './context/Contexts';
 import './App.css';
 
@@ -21,10 +21,10 @@ function App() {
 
       {clean ?
         <button onClick={handleClean}>Clima por ubicación</button>
-        : <CiudadUbicacion />}
+        : <CityLocation />}
 
       <CleanContext.Provider value={[handleClean, clean]}>
-        <SelectCiudades />
+        <SelectCities />
       </CleanContext.Provider>
     </div>
   );
