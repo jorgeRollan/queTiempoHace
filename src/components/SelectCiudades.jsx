@@ -3,7 +3,7 @@ import FetchUrl from "../api/FetchUrl";
 import ShowWeather from "./ShowWeather";
 import CleanContext from '../context/Contexts';
 import DataContext from "../context/Contexts"
-import DatosFallback  from "./DatosFallback";
+import DatosFallback from "./DatosFallback";
 
 
 export default function SelectCiudades() {
@@ -46,8 +46,8 @@ export default function SelectCiudades() {
       setErrorData({ message: `error  ${newDatos.cod} No se han podido recuperar datos del tiempo` });
     }
     else {
-      let datosFallback = DatosFallback(newDatos);
-      setDatos(datosFallback);
+      //le paso datos por props porque no quiero que se carguen a la vez en showWeather como context 
+      setDatos(DatosFallback(newDatos));
     }
     //cargue los datos o falle hay que parar cargando
     setCargando(!cargando);
@@ -79,14 +79,18 @@ export default function SelectCiudades() {
       </select>
       <>
         <form>
-          <label htmlFor="busqueda">Introduzca una ciudad</label>
-          <input type="text" id="busqueda" name="busqueda"></input>
+          <label htmlFor="busqueda"></label>
+          <input type="text" id="busqueda" name="busqueda" placeholder="Introduzca una ciudad"></input>
           <button onClick={handleChange}>Buscar</button>
         </form>
       </>
+
+
       <DataContext.Provider value={datos}>
         {!cargando ? <h2>Devolviendo datos del servidor</h2> : <ShowWeather />}
       </DataContext.Provider>
+
+
     </div>
   )
 }

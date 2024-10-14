@@ -11,6 +11,9 @@ export default function CiudadUbicacion() {
   const [errorData, setErrorData] = useState(null);
   const [cargando, setCargando] = useState(false);
 
+  //tiempo cada cuanto se recomprueba la ubicación
+  const reloadLocationTime = 100000;
+
   const apiId = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
   //posicion del navegador he puesto el setinterval para que actualice la ubicacion cada x ms(he puesto 10 de momento) llamo a la funcion primero para evitar el delay la primera vez(?)
@@ -18,7 +21,7 @@ export default function CiudadUbicacion() {
     obtenerUbicacion();
     const intervalo = setInterval(() => {
       obtenerUbicacion();
-    }, 10000);
+    }, reloadLocationTime);
     return () => clearInterval(intervalo);
   }, []);
 
@@ -53,7 +56,6 @@ export default function CiudadUbicacion() {
       setErrorData({ message: `error  ${newDatos.cod} No se han podido recuperar datos del tiempo` });
     }
     else {
-      
       setDatos(DatosFallback(newDatos));
     }
     //cargue los datos o falle hay que parar cargando
