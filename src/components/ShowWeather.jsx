@@ -1,4 +1,3 @@
-import * as Compass from 'cardinal-direction';
 import { useContext } from 'react';
 import DataContext from "../context/Contexts"
 
