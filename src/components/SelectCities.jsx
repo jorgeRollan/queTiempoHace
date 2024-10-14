@@ -25,7 +25,7 @@ export default function SelectCities() {
     if (event.type === "change") {
       city = event.target.value;
       if (city !== selectCity) {
-        setSelect(city);
+        setSelectCity(city);
         if (!newSelectCity[1]) {
           newSelectCity[0]();
         }
