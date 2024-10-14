@@ -3,6 +3,7 @@ import FetchUrl from "../api/FetchUrl";
 import ShowWeather from "./ShowWeather";
 import CleanContext from '../context/Contexts';
 import DataContext from "../context/Contexts"
+import DatosFallback  from "./DatosFallback";
 
 
 export default function SelectCiudades() {
@@ -45,7 +46,8 @@ export default function SelectCiudades() {
       setErrorData({ message: `error  ${newDatos.cod} No se han podido recuperar datos del tiempo` });
     }
     else {
-      setDatos(newDatos);
+      let datosFallback = DatosFallback(newDatos);
+      setDatos(datosFallback);
     }
     //cargue los datos o falle hay que parar cargando
     setCargando(!cargando);

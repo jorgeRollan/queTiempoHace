@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import FetchUrl from '../api/FetchUrl';
 import ShowWeather from "./ShowWeather";
 import DataContext from "../context/Contexts"
+import DatosFallback from "./DatosFallback";
 
 export default function CiudadUbicacion() {
   const [datos, setDatos] = useState(null);
@@ -52,7 +53,8 @@ export default function CiudadUbicacion() {
       setErrorData({ message: `error  ${newDatos.cod} No se han podido recuperar datos del tiempo` });
     }
     else {
-      setDatos(newDatos);
+      
+      setDatos(DatosFallback(newDatos));
     }
     //cargue los datos o falle hay que parar cargando
     setCargando(!cargando);
