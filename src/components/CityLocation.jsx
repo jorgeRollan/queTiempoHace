@@ -53,7 +53,7 @@ export default function CityLocation() {
   const handleFetch = (newWeatherData) => {
     //si codigo http distinto de 200
     if (newWeatherData.cod !== 200) {
-      setErrorWeatherData({ message: `error  ${newWeather.cod} No se han podido recuperar datos del tiempo` });
+      setErrorWeatherData({ message: `error  ${newWeatherData.cod} No se han podido recuperar datos del tiempo` });
     }
     else {
       setWeatherData(DataFallback(newWeatherData));
