@@ -4,12 +4,8 @@ import SelectContext from "../../context/Contexts"
 
 
 export default function SelectCities() {
-    //states para datos del tiempo, ciudad del select el cargando y contexto del padre app para limpiar ubicacion
-
     let { selectCity, setSelectCity, setLoading } = useContext(SelectContext);
 
-
-    //handle para pillar el select y ahora tambien el campo de busqueda de la city
     const handleChange = (event) => {
         let city = event.target.value;
         if (city !== selectCity) {
